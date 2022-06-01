@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:qaza_tracker/screens/home/Inputs.dart';
+
+import '../../Shortcuts.dart';
+import 'ImageGirl.dart';
+import 'WelcomeText.dart';
 
 class HomeMain extends StatefulWidget {
   const HomeMain({Key? key}) : super(key: key);
@@ -13,9 +18,17 @@ class _HomeMainState extends State<HomeMain> {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * 100 ,
-      height: MediaQuery.of(context).size.height * 100 ,
+      height:800 ,
      color: HexColor('#0A0171'),
-      child: Text('200'),
+      child: Column(
+        children: [
+          ImageGirl(),
+          setHeight(51),
+          WelcomeText(),
+          setHeight(38),
+          Inputs()
+        ],
+      ),
     );
   }
 }
