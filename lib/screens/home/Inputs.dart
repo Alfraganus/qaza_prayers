@@ -65,11 +65,23 @@ class Inputs extends StatelessWidget {
             child: Text('Log in'),
             onPressed: () async {
               try {
-              final response = await FirebaseAuth.instance.signInWithEmailAndPassword(
+                // await FirebaseAuth.instance.signOut();
+                final response = await FirebaseAuth.instance.signInWithEmailAndPassword(
                     email: 'alfra@test.uz',
                     password: '123456'
                 );
-              print(response);
+               final auth =  FirebaseAuth.instance
+                    .authStateChanges()
+                    .listen((User? user) {
+                  if (user == null) {
+                    print('User is currently signed out!');
+                  } else {
+                    print('User is signed in!');
+                  }
+                });
+
+
+              print(auth);
               } on FirebaseAuthException catch (e) {
                 if (e.code == 'user-not-found') {
                   print('No user found for that email.');
