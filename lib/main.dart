@@ -1,9 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:qaza_tracker/screens/home/homeMain.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'app_module.dart';
-void main() => runApp(ModularApp(module: AppModular(), child: QazaTrakerStart()));
+import 'package:firebase_core/firebase_core.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+      apiKey: 'AIzaSyDxKKYaaaQunICA_pZg_Ew_XfTOsQW1jrU',
+      appId: '1:24199581709:android:5f229a990eb571ae884544',
+      messagingSenderId: '24199581709',
+      projectId: 'qaza-prayers-tracker',
+      storageBucket: 'qaza-prayers-tracker.appspot.com',
+    ),
+  );
+  // await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+   runApp(
+      ModularApp(
+          module: AppModular(),
+          child: QazaTrakerStart()
+      )
+  );
+}
 
 class QazaTrakerStart extends StatelessWidget {
   const QazaTrakerStart({Key? key}) : super(key: key);

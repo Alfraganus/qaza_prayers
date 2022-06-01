@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:qaza_tracker/Shortcuts.dart';
@@ -62,7 +63,22 @@ class Inputs extends StatelessWidget {
           setHeight(25),
           ElevatedButton(
             child: Text('Log in'),
-            onPressed: () {},
+            onPressed: () async {
+              try {
+              final response = await FirebaseAuth.instance.signInWithEmailAndPassword(
+                    email: 'alfra@test.uz',
+                    password: '123456'
+                );
+              print(response);
+              } on FirebaseAuthException catch (e) {
+                if (e.code == 'user-not-found') {
+                  print('No user found for that email.');
+                } else if (e.code == 'wrong-password') {
+                  print('Wrong password provided for that user.');
+                }
+
+              }
+            },
             style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(22)),
