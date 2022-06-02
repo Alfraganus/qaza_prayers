@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:qaza_tracker/screens/home/Inputs.dart';
 
@@ -8,7 +9,6 @@ import 'WelcomeText.dart';
 
 class HomeMain extends StatefulWidget {
   const HomeMain({Key? key}) : super(key: key);
-
   @override
   State<HomeMain> createState() => _HomeMainState();
 }

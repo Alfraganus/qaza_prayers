@@ -1,22 +1,26 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:qaza_tracker/Shortcuts.dart';
-
+import 'package:email_validator/email_validator.dart';
 class Inputs extends StatelessWidget {
   const Inputs({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController login = new TextEditingController();
+    TextEditingController password = new TextEditingController();
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20 ),
       child: Column(
         children: [
-          const TextField(
-            style: TextStyle(
+          TextFormField(
+            controller: login,
+            style: const TextStyle(
               color: Colors.white
             ),
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.white),
                 borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -36,11 +40,13 @@ class Inputs extends StatelessWidget {
             ),
           ),
           setHeight(16),
-          const TextField(
-            style: TextStyle(
+           TextFormField(
+            controller: password,
+             // validator: (value) => EmailValidator.validate(value) ? null : "Please enter a valid email",
+            style: const TextStyle(
                 color: Colors.white
             ),
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.white),
                 borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -64,31 +70,33 @@ class Inputs extends StatelessWidget {
           ElevatedButton(
             child: Text('Log in'),
             onPressed: () async {
-              try {
-                // await FirebaseAuth.instance.signOut();
-                final response = await FirebaseAuth.instance.signInWithEmailAndPassword(
-                    email: 'alfra@test.uz',
-                    password: '123456'
-                );
-               final auth =  FirebaseAuth.instance
-                    .authStateChanges()
-                    .listen((User? user) {
-                  if (user == null) {
-                    print('User is currently signed out!');
-                  } else {
-                    print('User is signed in!');
+              // await FirebaseAuth.instance.signOut();
+              if (login.text.isEmpty || !EmailValidator.validate(login.text)) {
+                return showTopFlash(context,'Email xato kiritilgan yoki bosh qoldirilgan!');
+              } else {
+                try {
+                  await FirebaseAuth.instance.signInWithEmailAndPassword(
+                      email: 'alfra@test.uz',
+                      password: '123456'
+                  );
+                  Modular.to.navigate('/test');
+
+                  /* final auth =  FirebaseAuth.instance
+                      .authStateChanges()
+                      .listen((User? user) {
+                    if (user == null) {
+                      print('User is currently signed out!');
+                    } else {
+                      print('User is signed in!');
+                    }
+                  });*/
+                } on FirebaseAuthException catch (e) {
+                  if (e.code == 'user-not-found') {
+                    showTopFlash(context,'Bunday foydalanuvchi topilmadi');
+23123                  } else if (e.code == 'wrong-password') {
+                    showTopFlash(context,'Parol mos kelmadi');
                   }
-                });
-
-
-              print(auth);
-              } on FirebaseAuthException catch (e) {
-                if (e.code == 'user-not-found') {
-                  print('No user found for that email.');
-                } else if (e.code == 'wrong-password') {
-                  print('Wrong password provided for that user.');
                 }
-
               }
             },
             style: ElevatedButton.styleFrom(
@@ -100,6 +108,9 @@ class Inputs extends StatelessWidget {
                 textStyle:
                     TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
           ),
+          ElevatedButton(onPressed:() {
+            Modular.to.pushNamed('/test');
+          }, child: Text('test'))
         ],
       ),
     );

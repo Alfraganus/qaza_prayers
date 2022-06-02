@@ -16,19 +16,28 @@ void main() async {
       storageBucket: 'qaza-prayers-tracker.appspot.com',
     ),
   );
-  // await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
    runApp(
       ModularApp(
           module: AppModular(),
-          child: QazaTrakerStart()
+          child: AppWidget()
       )
   );
 }
 
+class AppWidget extends StatelessWidget {
+  Widget build(BuildContext context){
+    return MaterialApp.router(
+      title: 'My Smart App',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      routeInformationParser: Modular.routeInformationParser,
+      routerDelegate: Modular.routerDelegate,
+    ); //added by extension
+  }
+}
+
+
 class QazaTrakerStart extends StatelessWidget {
   const QazaTrakerStart({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -36,37 +45,23 @@ class QazaTrakerStart extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+  const MyHomePage({Key? key}) : super(key: key);
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text('app title'),
       ),
       body:SingleChildScrollView(
         physics: BouncingScrollPhysics(),
