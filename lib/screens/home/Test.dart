@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Test extends StatelessWidget {
@@ -7,7 +8,12 @@ class Test extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      body: Text('ishladiiiiim'),
+      body: ElevatedButton(
+        child: Text('test'),
+        onPressed: ()  async{
+          await FirebaseAuth.instance.signOut();
+      },
+      ),
     );
   }
 }

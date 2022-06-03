@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'app_module.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import 'firebase/FireBaseAuth.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -16,6 +18,7 @@ void main() async {
       storageBucket: 'qaza-prayers-tracker.appspot.com',
     ),
   );
+  print(boolCheckUser());
    runApp(
       ModularApp(
           module: AppModular(),

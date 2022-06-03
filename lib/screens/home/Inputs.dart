@@ -79,21 +79,13 @@ class Inputs extends StatelessWidget {
                       email: 'alfra@test.uz',
                       password: '123456'
                   );
-                  Modular.to.navigate('/test');
+                  Modular.to.navigate('/');
 
-                  /* final auth =  FirebaseAuth.instance
-                      .authStateChanges()
-                      .listen((User? user) {
-                    if (user == null) {
-                      print('User is currently signed out!');
-                    } else {
-                      print('User is signed in!');
-                    }
-                  });*/
+
                 } on FirebaseAuthException catch (e) {
                   if (e.code == 'user-not-found') {
                     showTopFlash(context,'Bunday foydalanuvchi topilmadi');
-23123                  } else if (e.code == 'wrong-password') {
+                  } else if (e.code == 'wrong-password') {
                     showTopFlash(context,'Parol mos kelmadi');
                   }
                 }
@@ -108,9 +100,6 @@ class Inputs extends StatelessWidget {
                 textStyle:
                     TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
           ),
-          ElevatedButton(onPressed:() {
-            Modular.to.pushNamed('/test');
-          }, child: Text('test'))
         ],
       ),
     );
