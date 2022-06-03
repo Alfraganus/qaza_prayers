@@ -72,15 +72,15 @@ class Inputs extends StatelessWidget {
             onPressed: () async {
               // await FirebaseAuth.instance.signOut();
               if (login.text.isEmpty || !EmailValidator.validate(login.text)) {
-                return showTopFlash(context,'Email xato kiritilgan yoki bosh qoldirilgan!');
+                Modular.to.pushNamed('/');
+                // return showTopFlash(context,'Email xato kiritilgan yoki bosh qoldirilgan!');
               } else {
                 try {
                   await FirebaseAuth.instance.signInWithEmailAndPassword(
                       email: 'alfra@test.uz',
                       password: '123456'
                   );
-                  Modular.to.navigate('/');
-
+                  Modular.to.pushNamed('/');
 
                 } on FirebaseAuthException catch (e) {
                   if (e.code == 'user-not-found') {

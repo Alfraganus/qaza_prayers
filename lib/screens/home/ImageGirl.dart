@@ -8,7 +8,7 @@ class ImageGirl extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       padding: EdgeInsets.only(top: 91),
-      child: Image.asset('assets/images/phonegirl.png',width: 177,height: 158,),
+      child: Image.asset('assets/images/joynamiz.png',width: 300,height: 200,),
     );
   }
 }

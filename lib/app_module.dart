@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:qaza_tracker/screens/home/Test.dart';
 import 'package:qaza_tracker/screens/home/homeMain.dart';
+import 'package:qaza_tracker/screens/home/prayer_list/PrayerListMain.dart';
 import 'main.dart';
 
 bool isLogined= false;
@@ -19,7 +20,7 @@ class AppModular extends Module {
   });
   @override
   List<ModularRoute> get routes => [
-    ChildRoute('/', child: (context, args) => Test()),
+    ChildRoute('/', child: (context, args) => PrayerListMain()),
     ChildRoute('/login', child: (context, args) => MyHomePage()),
   ];
 }

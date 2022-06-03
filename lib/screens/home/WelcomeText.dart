@@ -10,13 +10,13 @@ class WelcomeText extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          Text('Welcome Back!',style: TextStyle(
+          Text('Xush kelibsiz birodar!',style: TextStyle(
             color: loginColor,
             fontSize: 20,
             fontWeight: FontWeight.w800
           ),),
           setHeight(41),
-          Text('Please log into your existing account!',style: TextStyle(
+          Text('Ibodatlar uchun qaydnoma',style: TextStyle(
               color: loginColor,
               fontSize: 16,
           ),),
