@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class TabView extends StatefulWidget {
   const TabView({Key? key}) : super(key: key);
@@ -36,15 +37,14 @@ class _TabViewState extends State<TabView> {
                 ),
               ),
               Container(
-                  height: 400, //height of TabBarView
+                  height: MediaQuery.of(context).size.height/1.5,
+                  width: double.infinity,//height of TabBarView
                   decoration: BoxDecoration(
                       border: Border(top: BorderSide(color: Colors.grey, width: 0.5))
                   ),
                   child: TabBarView(children: <Widget>[
                     Container(
-                      child: Center(
-                        child: Text('Display Tab 1', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-                      ),
+                      child: PrayerName(),
                     ),
                     Container(
                       child: Center(
@@ -65,3 +65,46 @@ class _TabViewState extends State<TabView> {
     );
   }
 }
+
+class PrayerName extends StatelessWidget {
+  const PrayerName({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(10),
+      child: Row(
+        children: [
+        Container(
+
+        ),
+          Column(
+            children: [
+              Row(
+                children: [
+                  Stack(
+                    alignment: Alignment.topLeft,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: 15,top: 10),
+                        child: Text('1',),
+                      ),
+                      Image(image: AssetImage('assets/images/star.png')),
+                    ],
+                  ),
+                  Text('Bomdot',style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w900,
+                      color: HexColor('#240F4F')
+                  ),)
+                ],
+              )
+
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}
+
