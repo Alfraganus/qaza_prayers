@@ -18,7 +18,7 @@ void main() async {
       storageBucket: 'qaza-prayers-tracker.appspot.com',
     ),
   );
-  print(boolCheckUser());
+  // print(boolCheckUser());
    runApp(
       ModularApp(
           module: AppModular(),

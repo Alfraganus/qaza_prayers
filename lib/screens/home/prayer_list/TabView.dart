@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class TabView extends StatefulWidget {
@@ -108,44 +109,49 @@ class SinglePrayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child:   Row(
-        children: [
-          Container(
-              child: Stack(
-                alignment: Alignment.topLeft,
-                children:  [
-                  Padding(
-                    padding: EdgeInsets.only(left: 15, top: 10),
-                    child: Text(this.id.toString()),
+      child:   GestureDetector(
+        onTap: () {
+          Modular.to.pushNamed('/counter');
+        },
+        child: Row(
+          children: [
+            Container(
+                child: Stack(
+                  alignment: Alignment.topLeft,
+                  children:  [
+                    Padding(
+                      padding: EdgeInsets.only(left: 15, top: 10),
+                      child: Text(this.id.toString()),
 
-                  ),
-                  Image(image: AssetImage('assets/images/star.png')),
-                ],
-              )),
-          Padding(
-            padding: EdgeInsets.only(left: 20),
-            child: Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      this.prayerType,
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w900,
-                          color: HexColor('#240F4F')),
                     ),
-                    Text(
-                      'Oqilganlar miqdori',
-                      style:
-                      TextStyle(fontSize: 14, color: HexColor('#240F4F')),
-                    ),
+                    Image(image: AssetImage('assets/images/star.png')),
                   ],
                 )),
-          ),
-          Spacer(),
-          Text("${this.prayerQuantity} dona")
-        ],
+            Padding(
+              padding: EdgeInsets.only(left: 20),
+              child: Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        this.prayerType,
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w900,
+                            color: HexColor('#240F4F')),
+                      ),
+                      Text(
+                        'Oqilganlar miqdori',
+                        style:
+                        TextStyle(fontSize: 14, color: HexColor('#240F4F')),
+                      ),
+                    ],
+                  )),
+            ),
+            Spacer(),
+            Text("${this.prayerQuantity} dona")
+          ],
+        ),
       ),
     );
   }
