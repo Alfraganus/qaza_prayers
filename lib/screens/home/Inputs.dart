@@ -116,5 +116,5 @@ class Inputs extends StatelessWidget {
 
 void pageRoute() async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  await sharedPreferences.setString("token", 'alfra@test.uz');
+  await sharedPreferences.setString("userEmail", 'alfra@test.uz');
 }
