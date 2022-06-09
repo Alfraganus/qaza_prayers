@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:qaza_tracker/screens/home/homeMain.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'app_module.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'firebase/FireBaseAuth.dart';
 
 void main() async {
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  print(sharedPreferences.get('token'));
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: const FirebaseOptions(

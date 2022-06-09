@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:qaza_tracker/Shortcuts.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 class Inputs extends StatelessWidget {
   const Inputs({Key? key}) : super(key: key);
 
@@ -80,7 +81,13 @@ class Inputs extends StatelessWidget {
                       email: 'alfra@test.uz',
                       password: '123456'
                   );
+                  // var sharedPreferences;
+                  // SharedPreferences.getInstance();
+                  pageRoute();
+                  // Navigator.pushNamedAndRemoveUntil(context, "/login", (Route<dynamic> route) => false);
+
                   Modular.to.pushNamed('/');
+
 
                 } on FirebaseAuthException catch (e) {
                   if (e.code == 'user-not-found') {
@@ -104,4 +111,10 @@ class Inputs extends StatelessWidget {
       ),
     );
   }
+}
+
+
+void pageRoute() async {
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  await sharedPreferences.setString("token", 'alfra@test.uz');
 }
