@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../../../firebase/FireCloud.dart';
+
 class TabView extends StatefulWidget {
   const TabView({Key? key}) : super(key: key);
 
@@ -82,14 +84,13 @@ class PrayerList extends StatelessWidget {
   const PrayerList({Key? key}) : super(key: key);
 
   @override
-
   Widget build(BuildContext context) {
     return Container(
         padding: EdgeInsets.all(10),
         child: Wrap(
           runSpacing: 20,
           children: [
-            SinglePrayer(prayerType: 'Bomdot',prayerQuantity: 10, id:1),
+            SinglePrayer(prayerType: 'Bomdot',prayerQuantity:2, id:1),
             SinglePrayer(prayerType: 'Peshin',prayerQuantity: 10, id:1),
             SinglePrayer(prayerType: 'Asr',prayerQuantity: 10, id:1),
             SinglePrayer(prayerType: 'Shom',prayerQuantity: 10, id:1),
@@ -103,7 +104,7 @@ class SinglePrayer extends StatelessWidget {
   const SinglePrayer({Key? key, required this.id, required this.prayerQuantity, required this.prayerType}) : super(key: key);
 
   final int id;
-  final int prayerQuantity;
+  final dynamic prayerQuantity;
   final String prayerType;
 
   @override
