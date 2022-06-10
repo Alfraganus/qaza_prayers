@@ -11,11 +11,6 @@ import 'firebase/FireBaseAuth.dart';
 import 'firebase/FireCloud.dart';
 
 void main() async {
-  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  pageRoute();
-  getPrayerInfo();
-
-  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: const FirebaseOptions(
       apiKey: 'AIzaSyDxKKYaaaQunICA_pZg_Ew_XfTOsQW1jrU',
@@ -25,6 +20,13 @@ void main() async {
       storageBucket: 'qaza-prayers-tracker.appspot.com',
     ),
   );
+
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  pageRoute();
+  getPrayerInfo('bomdod');
+  // getPrayerInfo();
+  WidgetsFlutterBinding.ensureInitialized();
+
   // print(boolCheckUser());
    runApp(
       ModularApp(
