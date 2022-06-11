@@ -3,15 +3,18 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../../firebase/FireCloud.dart';
+import '../../../providers/PrayerProvider.dart';
 
 class TabView extends StatefulWidget {
   const TabView({Key? key}) : super(key: key);
+
 
   @override
   State<TabView> createState() => _TabViewState();
 }
 
 class _TabViewState extends State<TabView> {
+
   static const List<Tab> _tabs = [
     const Tab(
         child: const Text(
@@ -80,6 +83,40 @@ class _TabViewState extends State<TabView> {
   }
 }
 
+
+/*
+class PrayerList extends StatefulWidget {
+  const PrayerList({Key? key, required this.callback}) : super(key: key);
+
+  @override
+  State<PrayerList> createState() => _PrayerListState();
+}
+
+class _PrayerListState extends State<PrayerList> {
+  @override
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return  Container(
+        padding: EdgeInsets.all(10),
+        child: Wrap(
+          runSpacing: 20,
+          children: [
+            SinglePrayer(prayerType: 'Bomdot',prayerQuantity:wcallCallaback(), id:1),
+            SinglePrayer(prayerType: 'Peshin',prayerQuantity: 10, id:1),
+            SinglePrayer(prayerType: 'Asr',prayerQuantity: 10, id:1),
+            SinglePrayer(prayerType: 'Shom',prayerQuantity: 10, id:1),
+            SinglePrayer(prayerType: 'Xufton',prayerQuantity: 10, id:1),
+          ],
+        ));
+  }
+}
+*/
+
+
+
 class PrayerList extends StatelessWidget {
   const PrayerList({Key? key}) : super(key: key);
 
@@ -90,7 +127,7 @@ class PrayerList extends StatelessWidget {
         child: Wrap(
           runSpacing: 20,
           children: [
-            SinglePrayer(prayerType: 'Bomdot',prayerQuantity:2, id:1),
+            SinglePrayer(prayerType: 'Bomdot',prayerQuantity:23, id:1),
             SinglePrayer(prayerType: 'Peshin',prayerQuantity: 10, id:1),
             SinglePrayer(prayerType: 'Asr',prayerQuantity: 10, id:1),
             SinglePrayer(prayerType: 'Shom',prayerQuantity: 10, id:1),
@@ -99,6 +136,13 @@ class PrayerList extends StatelessWidget {
         ));
   }
 }
+
+
+
+
+
+
+
 
 class SinglePrayer extends StatelessWidget {
   const SinglePrayer({Key? key, required this.id, required this.prayerQuantity, required this.prayerType}) : super(key: key);

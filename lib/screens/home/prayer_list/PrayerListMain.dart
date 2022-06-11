@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:qaza_tracker/screens/home/prayer_list/Header.dart';
-
 import 'TabView.dart';
 
 class PrayerListMain extends StatelessWidget {
   const PrayerListMain({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:provider/provider.dart';
+import 'package:qaza_tracker/providers/PrayerProvider.dart';
 import 'package:qaza_tracker/screens/home/Inputs.dart';
 import 'package:qaza_tracker/screens/home/homeMain.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,6 +13,7 @@ import 'firebase/FireBaseAuth.dart';
 import 'firebase/FireCloud.dart';
 
 void main() async {
+
   await Firebase.initializeApp(
     options: const FirebaseOptions(
       apiKey: 'AIzaSyDxKKYaaaQunICA_pZg_Ew_XfTOsQW1jrU',
@@ -22,16 +25,20 @@ void main() async {
   );
 
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  writeCloud();
   pageRoute();
   getPrayerInfo('bomdod');
   // getPrayerInfo();
   WidgetsFlutterBinding.ensureInitialized();
-
   // print(boolCheckUser());
    runApp(
       ModularApp(
           module: AppModular(),
-          child: AppWidget()
+          child:  MultiProvider(providers: [
+            ChangeNotifierProvider(create:(_) => Prayer())
+          ],
+            child: AppWidget(),
+          )
       )
   );
 }
