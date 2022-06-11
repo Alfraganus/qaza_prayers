@@ -70,7 +70,7 @@ void sendUserDataToFireCloud(PrayerType,OrderPrayer) async{
   dynamic userEmail = sharedPreferences.get('userEmail');
 
   db.collection("users_prayer")
-      .doc("${userEmail}_${PrayerType}").set({
+      .doc("${OrderPrayer}_${userEmail}_${PrayerType}").set({
       "order": OrderPrayer,
       "prayerType": StringExtension(PrayerType).capitalize(),
       "times":0,

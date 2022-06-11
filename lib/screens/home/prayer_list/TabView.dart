@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -122,27 +123,47 @@ class PrayerList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Stream<QuerySnapshot>prayers = FirebaseFirestore.instance
+        .collection('users_prayer')
+        .where("user",isEqualTo:"alfra@test.uz")
+        // .orderBy('order')
+        .snapshots()
+    ;
     return Container(
-        padding: EdgeInsets.all(10),
-        child: Wrap(
-          runSpacing: 20,
-          children: [
-            SinglePrayer(prayerType: 'Bomdot',prayerQuantity:23, id:1),
-            SinglePrayer(prayerType: 'Peshin',prayerQuantity: 10, id:1),
-            SinglePrayer(prayerType: 'Asr',prayerQuantity: 10, id:1),
-            SinglePrayer(prayerType: 'Shom',prayerQuantity: 10, id:1),
-            SinglePrayer(prayerType: 'Xufton',prayerQuantity: 10, id:1),
-          ],
-        ));
+      padding: EdgeInsets.symmetric(vertical: 10,horizontal: 5),
+      child: StreamBuilder<QuerySnapshot>(stream: prayers,builder:(
+          BuildContext context,
+          AsyncSnapshot<QuerySnapshot> snapshot
+          ){
+        if(snapshot.hasError) {
+          return Text('we have error');
+        }
+        if(snapshot.connectionState == ConnectionState.waiting) {
+          return Text('Loading');
+        }
+        return snapshot.hasData  ? ListView.builder(
+          itemCount: snapshot.requireData.size,
+          itemBuilder: (context, index) {
+            var data = snapshot.requireData.docs[index];
+            return Container(
+                padding: EdgeInsets.all(10),
+                child: Wrap(
+                  children: [
+                    SinglePrayer(
+                        prayerType: data['prayerType'],
+                        prayerQuantity:data['times'],
+                        id:data['order']+1,
+                    ),
+                  ],
+                ));
+          },
+        ) : Text('data is not avaible');
+      }),
+      //['prayerType']
+
+    );
   }
-}
-
-
-
-
-
-
-
+  }
 
 class SinglePrayer extends StatelessWidget {
   const SinglePrayer({Key? key, required this.id, required this.prayerQuantity, required this.prayerType}) : super(key: key);

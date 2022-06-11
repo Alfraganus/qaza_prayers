@@ -25,7 +25,7 @@ void main() async {
   );
 
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  writeCloud();
+  // writeCloud();
   pageRoute();
   getPrayerInfo('bomdod');
   // getPrayerInfo();
