@@ -4,20 +4,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Prayer with ChangeNotifier {
 
-  int _bomdod = 999;
+  int _bomdod = 0;
   int _peshin = 0;
   int _asr = 0;
   int _shom = 0;
   int _xufton = 0;
 
-  int _current = 0;
 
   int get Bomdod => _bomdod;
   int get Peshin => _peshin;
   int get Asr => _asr;
   int get Shom => _shom;
   int get Xufton => _xufton;
-  int get Current => _current;
 
   void setPrayer(prayer, quantity,bool increment) {
     switch (prayer) {

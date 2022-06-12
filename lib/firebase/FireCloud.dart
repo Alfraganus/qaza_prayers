@@ -3,18 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
-
-
-/*void CreateOrUpdateData() {
-  var userEmail = getUserEmail();
-  var db = FirebaseFirestore.instance;
-  db.collection('users_prayer')
-      .doc("${userEmail}_bomdod")
-      .set(data, SetOptions(merge: true));
-}*/
-
-
-
 Future<int?> getPrayerInfo(prayerType) async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   dynamic userEmail = sharedPreferences.get('userEmail');
