@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
 
 import '../../../firebase/FireCloud.dart';
 import '../../../providers/PrayerProvider.dart';
@@ -85,36 +86,7 @@ class _TabViewState extends State<TabView> {
 }
 
 
-/*
-class PrayerList extends StatefulWidget {
-  const PrayerList({Key? key, required this.callback}) : super(key: key);
 
-  @override
-  State<PrayerList> createState() => _PrayerListState();
-}
-
-class _PrayerListState extends State<PrayerList> {
-  @override
-
-
-
-  @override
-  Widget build(BuildContext context) {
-    return  Container(
-        padding: EdgeInsets.all(10),
-        child: Wrap(
-          runSpacing: 20,
-          children: [
-            SinglePrayer(prayerType: 'Bomdot',prayerQuantity:wcallCallaback(), id:1),
-            SinglePrayer(prayerType: 'Peshin',prayerQuantity: 10, id:1),
-            SinglePrayer(prayerType: 'Asr',prayerQuantity: 10, id:1),
-            SinglePrayer(prayerType: 'Shom',prayerQuantity: 10, id:1),
-            SinglePrayer(prayerType: 'Xufton',prayerQuantity: 10, id:1),
-          ],
-        ));
-  }
-}
-*/
 
 
 
@@ -126,7 +98,6 @@ class PrayerList extends StatelessWidget {
     final Stream<QuerySnapshot>prayers = FirebaseFirestore.instance
         .collection('users_prayer')
         .where("user",isEqualTo:"alfra@test.uz")
-        // .orderBy('order')
         .snapshots()
     ;
     return Container(
@@ -144,6 +115,7 @@ class PrayerList extends StatelessWidget {
         return snapshot.hasData  ? ListView.builder(
           itemCount: snapshot.requireData.size,
           itemBuilder: (context, index) {
+            print(snapshot.requireData.docs[index].reference.id);
             var data = snapshot.requireData.docs[index];
             return Container(
                 padding: EdgeInsets.all(10),
@@ -153,6 +125,8 @@ class PrayerList extends StatelessWidget {
                         prayerType: data['prayerType'],
                         prayerQuantity:data['times'],
                         id:data['order']+1,
+                        document_id:data.reference.id,
+
                     ),
                   ],
                 ));
@@ -166,18 +140,31 @@ class PrayerList extends StatelessWidget {
   }
 
 class SinglePrayer extends StatelessWidget {
-  const SinglePrayer({Key? key, required this.id, required this.prayerQuantity, required this.prayerType}) : super(key: key);
+  const SinglePrayer({Key? key, required this.id, required this.prayerQuantity, required this.prayerType, required this.document_id}) : super(key: key);
 
   final int id;
   final dynamic prayerQuantity;
   final String prayerType;
+  final String document_id;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child:   GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('/counter');
+          Provider.of<Prayer>(context, listen: false).setPrayer(
+            prayerType,
+            prayerQuantity,
+            false
+          );
+          Modular.to.pushNamed('/counter',
+          arguments: {
+            'prayer_type':prayerType,
+            'quantity':prayerQuantity,
+            'document':document_id,
+            'order':id-1,
+          }
+          );
         },
         child: Row(
           children: [

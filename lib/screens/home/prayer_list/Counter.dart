@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
 import 'package:qaza_tracker/Shortcuts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../firebase/FireCloud.dart';
+import '../../../providers/PrayerProvider.dart';
 
 class Counter22 extends StatelessWidget {
   const Counter22({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final argument = (ModalRoute.of(context)?.settings.arguments ?? <String, dynamic>{}) as Map;
+    var inreasePrayer = argument['quantity'];
+    var provider = Provider.of<Prayer>(context, listen: true);
+    var getPrayer = provider.getPrayer(argument['prayer_type']);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Hisoblagich'),
@@ -16,7 +26,7 @@ class Counter22 extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text('Shu kungacha bo\'lgan peshin namozi adadi',
+          Text('Shu kungacha bo\'lgan ${argument['prayer_type']} namozi adadi',
           textAlign: TextAlign.center, style: TextStyle(
               fontSize: 24,
               color: Colors.white,
@@ -32,7 +42,7 @@ class Counter22 extends StatelessWidget {
               Positioned(
                 left: MediaQuery.of(context).size.width*0.45,
                 top: 80,
-                child: Text('10', style: TextStyle(
+                child: Text(getPrayer.toString(), style: TextStyle(
                   color: Colors.white,
                   fontSize: 26
                 ),),
@@ -66,7 +76,13 @@ class Counter22 extends StatelessWidget {
                       child: Text('+', style: TextStyle(
                           color: Colors.white
                       ),),
-                      onPressed: null,
+                      onPressed:() async {
+                      updatePrayerCloud(
+                        argument['document'],
+                        inreasePrayer! + 1
+                        );
+                        provider.setPrayer(argument['prayer_type'], argument['quantity']+1,true);
+                      },
                       style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(22)),
@@ -77,18 +93,13 @@ class Counter22 extends StatelessWidget {
                           padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                           textStyle:TextStyle(fontSize: 30, fontWeight: FontWeight.bold)
                       ),
-
-
-
                     ),
-
                   ),
                 ],
               ),
             ),
           )
         ],
-
       )
     );
   }
