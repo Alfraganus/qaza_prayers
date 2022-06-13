@@ -60,12 +60,19 @@ class Counter22 extends StatelessWidget {
                       child: Text('-', style: TextStyle(
                         color: Colors.white
                       ),),
-                      onPressed: null,
+                      onPressed:() async {
+                        provider.setPrayerByOne(
+                            argument['prayer_type'],
+                            inreasePrayer,
+                            argument['document'],
+                            false
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(22)),
                           minimumSize: Size.fromHeight(48),
-                          primary: HexColor('#2BC990'),
+                          primary: HexColor('#C70039'),
                           padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                           textStyle:
                           TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
@@ -77,11 +84,12 @@ class Counter22 extends StatelessWidget {
                           color: Colors.white
                       ),),
                       onPressed:() async {
-                      updatePrayerCloud(
-                        argument['document'],
-                        inreasePrayer! + 1
+                        provider.setPrayerByOne(
+                            argument['prayer_type'],
+                            inreasePrayer,
+                            argument['document'],
+                            true
                         );
-                        provider.setPrayer(argument['prayer_type'], argument['quantity']+1,true);
                       },
                       style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(

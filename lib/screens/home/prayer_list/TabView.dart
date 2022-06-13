@@ -35,7 +35,7 @@ class _TabViewState extends State<TabView> {
           children: <Widget>[
             SizedBox(height: 36.0),
             DefaultTabController(
-                length: 3, // length of tabs
+                length: 2, // length of tabs
                 initialIndex: 0,
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -47,7 +47,6 @@ class _TabViewState extends State<TabView> {
                           tabs: [
                             Tab(text: 'Farz ibodat'),
                             Tab(text: 'Roza'),
-                            Tab(text: 'Nafl'),
                           ],
                         ),
                       ),
@@ -70,14 +69,7 @@ class _TabViewState extends State<TabView> {
                                         fontWeight: FontWeight.bold)),
                               ),
                             ),
-                            Container(
-                              child: const Center(
-                                child: Text('Display Tab 3',
-                                    style: TextStyle(
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.bold)),
-                              ),
-                            ),
+
                           ]))
                     ])),
           ]),
@@ -124,7 +116,7 @@ class PrayerList extends StatelessWidget {
                     SinglePrayer(
                         prayerType: data['prayerType'],
                         prayerQuantity:data['times'],
-                        id:data['order']+1,
+                        id:data['order'],
                         document_id:data.reference.id,
 
                     ),
@@ -155,7 +147,6 @@ class SinglePrayer extends StatelessWidget {
           Provider.of<Prayer>(context, listen: false).setPrayer(
             prayerType,
             prayerQuantity,
-            false
           );
           Modular.to.pushNamed('/counter',
           arguments: {

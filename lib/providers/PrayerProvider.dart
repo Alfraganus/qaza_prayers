@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../firebase/FireCloud.dart';
+
 class Prayer with ChangeNotifier {
 
   int _bomdod = 0;
@@ -10,42 +12,72 @@ class Prayer with ChangeNotifier {
   int _shom = 0;
   int _xufton = 0;
 
-
   int get Bomdod => _bomdod;
   int get Peshin => _peshin;
   int get Asr => _asr;
   int get Shom => _shom;
   int get Xufton => _xufton;
 
-  void setPrayer(prayer, quantity,bool increment) {
+
+  void setPrayerByOne(prayer,quantity, doc, isInrease) {
     switch (prayer) {
       case 'Bomdod':
-        increment?
-        _bomdod ++ :
+        isInrease ?
+        _bomdod++ :
+        _bomdod--;
+        updatePrayerCloud(doc,_bomdod);
+        notifyListeners();
+        break;
+      case 'Peshin':
+        isInrease ?
+        _peshin++ :
+        _peshin--;
+        updatePrayerCloud(doc,_peshin);
+        notifyListeners();
+        break;
+      case 'Asr':
+        isInrease ?
+        _asr++ :
+        _asr--;
+        updatePrayerCloud(doc,_asr);
+        notifyListeners();
+        break;
+      case 'Shom':
+        isInrease ?
+        _shom++ :
+        _shom--;
+        updatePrayerCloud(doc,_shom);
+        notifyListeners();
+        break;
+      case 'Xufton':
+        isInrease ?
+        _xufton++ :
+        _xufton--;
+        updatePrayerCloud(doc,_xufton);
+        notifyListeners();
+        break;
+    }
+  }
+
+  void setPrayer(prayer, quantity) {
+    switch (prayer) {
+      case 'Bomdod':
         _bomdod = quantity;
         notifyListeners();
         break;
-      case 'Peshinn':
-        increment?
-        _peshin ++:
+      case 'Peshin':
         _peshin = quantity;
         notifyListeners();
         break;
       case 'Asr':
-        increment?
-        _asr++:
         _asr = quantity;
         notifyListeners();
         break;
       case 'Shom':
-        increment?
-        _shom++:
         _shom = quantity;
         notifyListeners();
         break;
       case 'Xufton':
-        increment?
-        _xufton++:
         _xufton = quantity;
         notifyListeners();
         break;

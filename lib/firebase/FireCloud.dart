@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 Future<int?> getPrayerInfo(prayerType) async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   dynamic userEmail = sharedPreferences.get('userEmail');
-   var collection = "${userEmail}_${prayerType}";
   var db = FirebaseFirestore.instance;
   var prayerCount = 0;
   final docRef = db.collection("users_prayer").doc("${userEmail}_${prayerType}");
@@ -35,7 +34,7 @@ void sendUserDataToFireCloud(PrayerType,OrderPrayer) async{
 
   db.collection("users_prayer")
       .doc("${OrderPrayer}_${userEmail}_${PrayerType}").set({
-      "order": OrderPrayer,
+      "order": OrderPrayer+1,
       "prayerType": StringExtension(PrayerType).capitalize(),
       "times":0,
       "user": userEmail,
@@ -59,9 +58,7 @@ extension StringExtension on String {
 }
 
 void updatePrayerCloud(document_id,times) {
-  print(times);
   CollectionReference prayer = FirebaseFirestore.instance.collection('users_prayer');
-
   prayer.doc(document_id).update( <String, dynamic>{
     "times":times,
   });
