@@ -5,6 +5,8 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:qaza_tracker/Shortcuts.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../firebase/FireCloud.dart';
 class Inputs extends StatelessWidget {
   const Inputs({Key? key}) : super(key: key);
 
@@ -34,7 +36,7 @@ class Inputs extends StatelessWidget {
                       width: 1
                 )
               ),
-              hintText: 'Login',
+              hintText: 'Email kiriting',
               hintStyle: TextStyle(
                   fontSize: 14.0, color: Colors.white,
               ),
@@ -61,7 +63,7 @@ class Inputs extends StatelessWidget {
                   )
               ),
 
-              hintText: 'Parol',
+              hintText: 'Parol kiriting',
               hintStyle: TextStyle(
                 fontSize: 14.0, color: Colors.white,
               ),
@@ -69,7 +71,7 @@ class Inputs extends StatelessWidget {
           ),
           setHeight(25),
           ElevatedButton(
-            child: Text('Kirish'),
+            child: Text('Ro\'yhattan o\'tish'),
             onPressed: () async {
               // await FirebaseAuth.instance.signOut();
               if (login.text.isEmpty || !EmailValidator.validate(login.text)) {
@@ -78,22 +80,22 @@ class Inputs extends StatelessWidget {
                 // return showTopFlash(context,'Email xato kiritilgan yoki bosh qoldirilgan!');
               } else {
                 try {
-                  await FirebaseAuth.instance.signInWithEmailAndPassword(
-                      email: 'alfra@test.uz',
-                      password: '123456'
+                  await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                      email: login.text,
+                      password: password.text
                   );
-                  pageRoute();
-                  // Navigator.pushNamedAndRemoveUntil(context, "/login", (Route<dynamic> route) => false);
-
+                  writeCloud();
                   Modular.to.pushNamed('/');
 
 
                 } on FirebaseAuthException catch (e) {
-                  if (e.code == 'user-not-found') {
-                    showTopFlash(context,'Bunday foydalanuvchi topilmadi');
-                  } else if (e.code == 'wrong-password') {
-                    showTopFlash(context,'Parol mos kelmadi');
+                  if (e.code == 'weak-password') {
+                    showTopFlash(context,'Iltimos, qiyinroq parol tanlang');
+                  } else if (e.code == 'email-already-in-use') {
+                    showTopFlash(context,'Ushbu email bilan oldin hisob ochilgan');
                   }
+                } catch (e) {
+                  print(e);
                 }
               }
             },
@@ -107,20 +109,6 @@ class Inputs extends StatelessWidget {
                 TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
           ),
           setHeight(10),
-          ElevatedButton(
-            child: Text('Royhattan otish'),
-            onPressed: () async {
-              Modular.to.pushNamed('/register');
-            },
-            style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(22)),
-                minimumSize: Size.fromHeight(48),
-                primary: HexColor('#A30000'),
-                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                textStyle:
-                TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-          ),
         ],
       ),
     );

@@ -5,6 +5,7 @@ import 'package:qaza_tracker/providers/PrayerProvider.dart';
 import 'package:qaza_tracker/screens/home/Inputs.dart';
 import 'package:qaza_tracker/screens/home/homeMain.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:qaza_tracker/screens/home/register/Inputs.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'app_module.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -26,7 +27,7 @@ void main() async {
 
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   // writeCloud();
-  pageRoute();
+  // pageRoute();
   getPrayerInfo('bomdod');
   // getPrayerInfo();
   WidgetsFlutterBinding.ensureInitialized();
