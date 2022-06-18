@@ -12,11 +12,11 @@ class Counter22 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final argument = (ModalRoute.of(context)?.settings.arguments ?? <String, dynamic>{}) as Map;
     var inreasePrayer = argument['quantity'];
     var provider = Provider.of<Prayer>(context, listen: true);
     var getPrayer = provider.getPrayer(argument['prayer_type']);
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Hisoblagich'),

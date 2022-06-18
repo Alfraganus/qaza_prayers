@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -9,7 +10,6 @@ import '../../../providers/PrayerProvider.dart';
 
 class TabView extends StatefulWidget {
   const TabView({Key? key}) : super(key: key);
-
 
   @override
   State<TabView> createState() => _TabViewState();
@@ -87,11 +87,12 @@ class PrayerList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final Stream<QuerySnapshot>prayers = FirebaseFirestore.instance
         .collection('users_prayer')
-        .where("user",isEqualTo:"alfra@test.uz")
-        .snapshots()
-    ;
+        .where("user",isEqualTo: FirebaseAuth.instance.currentUser?.email)
+        .snapshots();
+
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10,horizontal: 5),
       child: StreamBuilder<QuerySnapshot>(stream: prayers,builder:(

@@ -11,12 +11,21 @@ class Prayer with ChangeNotifier {
   int _asr = 0;
   int _shom = 0;
   int _xufton = 0;
+  String? _userEmail;
 
   int get Bomdod => _bomdod;
   int get Peshin => _peshin;
   int get Asr => _asr;
   int get Shom => _shom;
   int get Xufton => _xufton;
+
+  String? get UserEmail=> _userEmail;
+
+
+
+  void setUserEmail(email) {
+    _userEmail = email;
+  }
 
 
   void setPrayerByOne(prayer,quantity, doc, isInrease) {

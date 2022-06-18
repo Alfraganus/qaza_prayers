@@ -24,29 +24,29 @@ Future<int?> getPrayerInfo(prayerType) async {
     onError: (e) => print("Error getting document: $e"),
   );
 }
-
-
-void sendUserDataToFireCloud(PrayerType,OrderPrayer) async{
-  var db = FirebaseFirestore.instance;
-
+Future<dynamic?> testcha() async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   dynamic userEmail = sharedPreferences.get('userEmail');
+  return userEmail;
+}
+void sendUserDataToFireCloud(PrayerType,OrderPrayer,email) async{
+  var db = FirebaseFirestore.instance;
 
   db.collection("users_prayer")
-      .doc("${OrderPrayer}_${userEmail}_${PrayerType}").set({
+      .doc("${OrderPrayer}_${email}_${PrayerType}").set({
       "order": OrderPrayer+1,
       "prayerType": StringExtension(PrayerType).capitalize(),
       "times":0,
-      "user": userEmail,
+      "user": email,
   }, SetOptions(merge: true));
 }
 
 
-void writeCloud()
+void writeCloud(email)
 {
   var arr = ['bomdod','peshin','asr','shom','xufton'];
   for(var i = 0; i<=5;i++) {
-    sendUserDataToFireCloud(arr[i],i);
+    sendUserDataToFireCloud(arr[i],i,email);
   }
 }
 
@@ -62,4 +62,12 @@ void updatePrayerCloud(document_id,times) {
   prayer.doc(document_id).update( <String, dynamic>{
     "times":times,
   });
+}
+
+dynamic getPrayersByUserId(email) {
+  var test = testcha();
+ return FirebaseFirestore.instance
+      .collection('users_prayer')
+      .where("user",isEqualTo:email)
+      .snapshots();
 }

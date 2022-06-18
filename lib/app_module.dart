@@ -23,6 +23,7 @@ class AppModular extends Module {
   @override
   List<ModularRoute> get routes => [
     ChildRoute('/', child: (context, args) => MyHomePage()),
+    ChildRoute('/prayerMain', child: (context, args) => PrayerListMain()),
     ChildRoute('/counter', child: (context, args) => Counter22()),
     ChildRoute('/login', child: (context, args) => MyHomePage()),
     ChildRoute('/register', child: (context, args) => RegisterMain()),

@@ -75,18 +75,15 @@ class Inputs extends StatelessWidget {
             onPressed: () async {
               // await FirebaseAuth.instance.signOut();
               if (login.text.isEmpty || !EmailValidator.validate(login.text)) {
-                showTopFlash(context,'Iltimos, ma\'lumotlarni kiriting!');
-                // Modular.to.pushNamed('/');
-                // return showTopFlash(context,'Email xato kiritilgan yoki bosh qoldirilgan!');
+                return showTopFlash(context,'Email xato kiritilgan yoki b\'osh qoldirilgan!');
               } else {
                 try {
                   await FirebaseAuth.instance.createUserWithEmailAndPassword(
                       email: login.text,
                       password: password.text
                   );
-                  writeCloud();
                   Modular.to.pushNamed('/');
-
+                  writeCloud(login.text);
 
                 } on FirebaseAuthException catch (e) {
                   if (e.code == 'weak-password') {
