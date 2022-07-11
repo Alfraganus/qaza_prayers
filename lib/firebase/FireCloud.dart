@@ -24,11 +24,7 @@ Future<int?> getPrayerInfo(prayerType) async {
     onError: (e) => print("Error getting document: $e"),
   );
 }
-Future<dynamic?> testcha() async {
-  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  dynamic userEmail = sharedPreferences.get('userEmail');
-  return userEmail;
-}
+
 void sendUserDataToFireCloud(PrayerType,OrderPrayer,email) async{
   var db = FirebaseFirestore.instance;
 
@@ -64,10 +60,3 @@ void updatePrayerCloud(document_id,times) {
   });
 }
 
-dynamic getPrayersByUserId(email) {
-  var test = testcha();
- return FirebaseFirestore.instance
-      .collection('users_prayer')
-      .where("user",isEqualTo:email)
-      .snapshots();
-}

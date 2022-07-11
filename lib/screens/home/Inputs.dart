@@ -91,7 +91,12 @@ class Inputs extends StatelessWidget {
                   );
                   Provider.of<Prayer>(context, listen: false).setUserEmail(login.text);
                   pageRoute(login.text);
-                  Modular.to.pushNamed('/prayerMain');
+                  Modular.to.pushNamedAndRemoveUntil('/prayerMain',  (Route<dynamic> route) => false);
+
+                  // Navigator.of(context).pushNamedAndRemoveUntil('/prayerMain', (Route<dynamic> route) => false);
+                  // Modular.to.pushNamed('/prayerMain');
+                  // Modular.to.pushNamedAndRemoveUntil('/prayerMain',  (route)=>true);
+                  // Modular.to.pushNamed('/prayerMain');
                 } on FirebaseAuthException catch (e) {
                   if (e.code == 'user-not-found') {
                     showTopFlash(context,'Bunday foydalanuvchi topilmadi');
@@ -112,7 +117,7 @@ class Inputs extends StatelessWidget {
           ),
           setHeight(10),
           ElevatedButton(
-            child: Text('Royhattan otish'),
+            child: Text('Ro\'yhatdan o\'tish'),
             onPressed: () async {
               Modular.to.pushNamed('/register');
             },

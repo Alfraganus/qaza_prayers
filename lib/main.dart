@@ -24,7 +24,10 @@ void main() async {
     ),
   );
 
-  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  if(FirebaseAuth.instance.currentUser == null){
+    Modular.to.navigate('/login');
+  }
+
 
   // pageRoute();
   // getPrayerInfo();
@@ -81,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('app title'),
+        title: Text('Hush kelibsiz'),
       ),
       body:SingleChildScrollView(
         physics: BouncingScrollPhysics(),

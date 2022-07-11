@@ -1,4 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:qaza_tracker/screens/home/Test.dart';
@@ -13,19 +15,16 @@ bool isLogined= false;
 class AppModular extends Module {
   @override
   List<Bind> get binds => [];
-  final auth =  FirebaseAuth.instance
-      .authStateChanges()
-      .listen((User? user) {
-    if (user != null) {
-      isLogined = true;
-    }
-  });
+
+  var firebase = FirebaseAuth.instance.currentUser;
+
   @override
   List<ModularRoute> get routes => [
-    ChildRoute('/', child: (context, args) => MyHomePage()),
     ChildRoute('/prayerMain', child: (context, args) => PrayerListMain()),
     ChildRoute('/counter', child: (context, args) => Counter22()),
-    ChildRoute('/login', child: (context, args) => MyHomePage()),
+    ChildRoute('/login', child: (context, args) => firebase==null ?
+    MyHomePage():
+    PrayerListMain()),
     ChildRoute('/register', child: (context, args) => RegisterMain()),
   ];
 }

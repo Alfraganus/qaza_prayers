@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:qaza_tracker/Shortcuts.dart';
@@ -7,12 +9,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../firebase/FireCloud.dart';
 import '../../../providers/PrayerProvider.dart';
 
+
 class Counter22 extends StatelessWidget {
   const Counter22({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
+    if(FirebaseAuth.instance.currentUser == null){
+      Modular.to.navigate('/login');
+    }
     final argument = (ModalRoute.of(context)?.settings.arguments ?? <String, dynamic>{}) as Map;
     var inreasePrayer = argument['quantity'];
     var provider = Provider.of<Prayer>(context, listen: true);
