@@ -17,9 +17,8 @@ class PrayerListMain extends StatelessWidget {
         actions: <Widget>[
           GestureDetector(
             onTap:() {
-              print('ezildi');
-              FirebaseAuth.instance.signOut();
               Modular.to.navigate('/login');
+              FirebaseAuth.instance.signOut();
             },
             child: Padding(
               padding: EdgeInsets.only(right: 20.0),

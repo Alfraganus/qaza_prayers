@@ -20,11 +20,10 @@ class AppModular extends Module {
 
   @override
   List<ModularRoute> get routes => [
+    ChildRoute('/', child: (context, args) => PrayerListMain()),
     ChildRoute('/prayerMain', child: (context, args) => PrayerListMain()),
     ChildRoute('/counter', child: (context, args) => Counter22()),
-    ChildRoute('/login', child: (context, args) => firebase==null ?
-    MyHomePage():
-    PrayerListMain()),
+    ChildRoute('/login', child: (context, args) => MyHomePage()),
     ChildRoute('/register', child: (context, args) => RegisterMain()),
   ];
 }

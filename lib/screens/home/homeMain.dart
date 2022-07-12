@@ -23,9 +23,9 @@ class _HomeMainState extends State<HomeMain> {
       child: Column(
         children: [
           ImageGirl(),
-          setHeight(51),
+          setHeight(20),
           WelcomeText(),
-          setHeight(38),
+          setHeight(20),
           Inputs()
         ],
       ),

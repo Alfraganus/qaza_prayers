@@ -14,6 +14,7 @@ import 'firebase/FireBaseAuth.dart';
 import 'firebase/FireCloud.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: const FirebaseOptions(
       apiKey: 'AIzaSyDxKKYaaaQunICA_pZg_Ew_XfTOsQW1jrU',
@@ -31,7 +32,7 @@ void main() async {
 
   // pageRoute();
   // getPrayerInfo();
-  WidgetsFlutterBinding.ensureInitialized();
+
   // print(boolCheckUser());
    runApp(
       ModularApp(
@@ -41,7 +42,8 @@ void main() async {
           ],
             child: AppWidget(),
           )
-      )
+      ),
+
 
 
   );
@@ -83,6 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset : false,
       appBar: AppBar(
         title: Text('Hush kelibsiz'),
       ),

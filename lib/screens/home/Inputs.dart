@@ -93,7 +93,8 @@ class Inputs extends StatelessWidget {
                   pageRoute(login.text);
                   Modular.to.pushNamedAndRemoveUntil('/prayerMain',  (Route<dynamic> route) => false);
 
-                  // Navigator.of(context).pushNamedAndRemoveUntil('/prayerMain', (Route<dynamic> route) => false);
+                  // Navigator.of(context).p
+                  // ushNamedAndRemoveUntil('/prayerMain', (Route<dynamic> route) => false);
                   // Modular.to.pushNamed('/prayerMain');
                   // Modular.to.pushNamedAndRemoveUntil('/prayerMain',  (route)=>true);
                   // Modular.to.pushNamed('/prayerMain');
